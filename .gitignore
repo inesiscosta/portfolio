@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+
+# Build output
+.output/
+.wrangler/
+.svelte-kit/
+dist/
+build/
+out/
+
+# Generated
+*.tsbuildinfo
+
+# Env & secrets
+.env
+.env.*
+.secret-*
+*.pem
+
+# IDE / OS
+.idea/
+*.iml
+.DS_Store
+
+/tmp/
+
+# Content never enters this repo. src/content is a clone of the private content repo (or a copy of example-content/);
+# photos and the CV PDF live in the R2 bucket (pnpm photo:add / cv:push). .content/ is scratch space.
+/src/content/
+# Generated from src/content/site.yaml (scripts/site-config.ts).
+wrangler.jsonc
+static/images/about/
+.content/
