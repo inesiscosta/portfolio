@@ -1,0 +1,128 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "ignoreUnknown": false,
+    "includes": ["**", "!.svelte-kit", "!.wrangler", "!static", "!node_modules", "!**/*.md"],
+    "maxSize": 2621440
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "lineWidth": 140,
+    "formatWithErrors": true
+  },
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "recommended",
+      "style": {
+        "noParameterAssign": "off",
+        "noNonNullAssertion": "off",
+        "noUnusedTemplateLiteral": {
+          "level": "error",
+          "fix": "safe"
+        },
+        "useSelfClosingElements": {
+          "level": "error",
+          "fix": "safe"
+        },
+        "useTemplate": {
+          "level": "warn",
+          "fix": "safe"
+        },
+        "useNodejsImportProtocol": {
+          "level": "warn",
+          "fix": "safe"
+        },
+        "useAsConstAssertion": "error",
+        "useDefaultParameterLast": "error",
+        "useEnumInitializers": "error",
+        "useSingleVarDeclarator": "error",
+        "useNumberNamespace": "error",
+        "noInferrableTypes": "error",
+        "noUselessElse": "error"
+      },
+      "complexity": {
+        "noForEach": "off",
+        "noUselessCatch": {
+          "level": "error",
+          "fix": "safe"
+        },
+        "noUselessTernary": {
+          "level": "warn",
+          "fix": "safe"
+        },
+        "useOptionalChain": {
+          "level": "error",
+          "fix": "safe"
+        }
+      },
+      "a11y": {
+        "useKeyWithClickEvents": "off",
+        "noSvgWithoutTitle": "info"
+      },
+      "security": {
+        "noDangerouslySetInnerHtml": "off"
+      },
+      "suspicious": {
+        "noExplicitAny": "warn",
+        "noArrayIndexKey": "info",
+        "noAssignInExpressions": "info",
+        "noGlobalIsNan": {
+          "level": "warn",
+          "fix": "safe"
+        }
+      },
+      "correctness": {
+        "useExhaustiveDependencies": {
+          "level": "warn"
+        },
+        "noUnusedVariables": "off",
+        "noUnusedFunctionParameters": "off",
+        "noUnusedImports": "off",
+        "noUnusedLabels": "off",
+        "noUnusedPrivateClassMembers": "off",
+        "useUniqueElementIds": "off"
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double"
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["**/*.svelte"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useConst": "off",
+            "useImportType": "off"
+          },
+          "correctness": {
+            "noUnusedImports": "off",
+            "noUnusedVariables": "off"
+          }
+        }
+      }
+    }
+  ],
+  "html": {
+    "formatter": {
+      "indentScriptAndStyle": true
+    }
+  }
+}
