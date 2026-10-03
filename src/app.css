@@ -1,0 +1,311 @@
+/*
+  Global layer: design tokens, resets and the few typographic classes shared across pages.
+  Everything component-specific lives in that component's scoped <style> block.
+*/
+
+@font-face {
+  font-family: "Inter";
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+  src: url("/fonts/inter-var-latin.woff2") format("woff2");
+}
+
+:root {
+  --gray-100: #e9ebef;
+  --gray-200: #dde1e7;
+  --gray-300: #c5ccd6;
+  --gray-400: #9aa6b6;
+  --gray-500: #7b8ba1;
+  --gray-600: #56647a;
+  --gray-700: #3a4558;
+  --gray-900: #202938;
+  --gray-950: #141a24;
+
+  --bg: #f7f7f4;
+  --card: #fbfbf9;
+  --card-border: rgb(32 41 56 / 0.13);
+  --surface: var(--gray-100);
+  --surface-soft: rgb(233 235 239 / 0.55);
+  --border: rgb(32 41 56 / 0.1);
+  --border-strong: rgb(32 41 56 / 0.25);
+  --line: var(--gray-300);
+  --backdrop: rgb(32 41 56 / 0.4);
+
+  --text-strong: var(--gray-900);
+  --text: var(--gray-700);
+  --text-muted: #5f6e84;
+  --text-subtle: var(--gray-500);
+
+  --accent: #168fc3;
+  --accent-strong: #127aa8;
+  --accent-soft: rgb(22 143 195 / 0.12);
+  --accent-ink: #0f6f99;
+  --accent-gradient: linear-gradient(90deg, #1ea3d6, #168fc3, #1b6fa8);
+  --button-primary: color-mix(in srgb, var(--accent) 60%, var(--gray-900));
+  --button-primary-hover: color-mix(in srgb, var(--accent) 75%, var(--gray-900));
+  --button-primary-text: #ffffff;
+  --success: #16a34a;
+  --danger: #e10000;
+
+  --terminal-bg: #252c38;
+  --terminal-text: #e6e9ee;
+  --terminal-prompt: #6cc6c8;
+  --terminal-title: var(--gray-300);
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  --font-size-mono: 0.88em;
+  --font-size-note: 0.85rem;
+
+  --radius-sm: 0.25rem;
+  --radius: 0.375rem;
+  --radius-lg: 0.75rem;
+  --radius-full: 9999px;
+  --shadow-lg: 0 10px 15px -3px rgb(32 41 56 / 0.08), 0 4px 6px -4px rgb(32 41 56 / 0.08);
+  --shadow-xl: 0 20px 25px -5px rgb(32 41 56 / 0.1), 0 8px 10px -6px rgb(32 41 56 / 0.1);
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --container: 72rem;
+  --container-wide: 84rem;
+  --gutter: 1.25rem;
+  --edge-inset: max(var(--gutter), 3.75vw);
+  --header-height: 4rem;
+  --page-top: 2.5rem;
+  --page-bottom: 3rem;
+  --section-space: clamp(4.5rem, 3rem + 4.5vw, 7rem);
+  --prose-measure: 68ch;
+  --toc-width: 13rem;
+  --rail-width: 16rem;
+  --rail-gap: 3rem;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gutter: 2rem;
+    --page-bottom: 6rem;
+  }
+}
+
+:root.dark {
+  --bg: #0f141b;
+  --card: #161c26;
+  --card-border: rgb(233 235 239 / 0.12);
+  --surface: #232b38;
+  --surface-soft: rgb(35 43 56 / 0.55);
+  --border: rgb(233 235 239 / 0.1);
+  --border-strong: rgb(233 235 239 / 0.25);
+  --line: var(--gray-700);
+  --backdrop: rgb(0 0 0 / 0.55);
+
+  --text-strong: #f2f3f5;
+  --text: var(--gray-300);
+  --text-muted: var(--gray-400);
+  --text-subtle: var(--gray-500);
+
+  --accent: #3aa9da;
+  --accent-strong: #6cc4ea;
+  --accent-soft: rgb(58 169 218 / 0.16);
+  --accent-ink: #7fcdf0;
+  --button-primary: var(--accent);
+  --button-primary-hover: var(--accent-strong);
+  --button-primary-text: var(--gray-950);
+  --danger: #fc0000;
+
+  --terminal-bg: var(--gray-950);
+  --terminal-text: var(--gray-200);
+  --terminal-prompt: #7fcdf0;
+  --terminal-title: var(--gray-400);
+
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.45), 0 8px 10px -6px rgb(0 0 0 / 0.45);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0 solid;
+}
+
+html {
+  font-family: var(--font-sans);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-text-size-adjust: 100%;
+  line-height: 1.5;
+  scroll-behavior: smooth;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--text);
+  transition: background-color 0.2s var(--ease);
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.35s;
+  animation-timing-function: var(--ease);
+}
+
+::view-transition-old(theme-icon) {
+  display: none;
+}
+
+::view-transition-new(theme-icon) {
+  animation: none;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  background: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+::selection {
+  background: var(--accent-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* biome-ignore-start lint/complexity/noImportantStyles: reduced motion must beat every component's own timing */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  /* biome-ignore-end lint/complexity/noImportantStyles: see above */
+}
+
+@page {
+  size: A4 portrait;
+  margin: 10mm 10mm 6mm;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+.eyebrow {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.eyebrow-mono {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+}
+
+.display {
+  margin-bottom: 0.75rem;
+  font-size: clamp(2.5rem, 1.5rem + 3.5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  color: var(--text-strong);
+}
+
+.display strong {
+  font-weight: 800;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.heading-2xl {
+  margin-bottom: 0.75rem;
+  font-size: clamp(1.875rem, 1.25rem + 2.5vw, 3.75rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  color: var(--text-strong);
+}
+
+@media (min-width: 1280px) {
+  .eyebrow {
+    font-size: 1.125rem;
+  }
+}

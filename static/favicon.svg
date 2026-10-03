@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- "~/", the start of the ~/handle wordmark, in the site's accent gradient on a transparent background.
+       Brighter stops in dark mode keep it readable on dark browser tabs. -->
+  <style>
+    .a { stop-color: #1ea3d6 }
+    .b { stop-color: #168fc3 }
+    .c { stop-color: #1b6fa8 }
+    @media (prefers-color-scheme: dark) {
+      .a { stop-color: #6cc4ea }
+      .b { stop-color: #3aa9da }
+      .c { stop-color: #2b8fd0 }
+    }
+  </style>
+  <defs>
+    <linearGradient id="g" gradientUnits="userSpaceOnUse" x1="4" y1="6" x2="60" y2="58">
+      <stop offset="0" class="a" />
+      <stop offset=".55" class="b" />
+      <stop offset="1" class="c" />
+    </linearGradient>
+  </defs>
+  <g fill="none" stroke="url(#g)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5 34.5c4.4-6.6 10.2-6.1 15.2-1.5s10.8 5.1 15.2-1.5" />
+    <path d="M43 53 57 11" />
+  </g>
+</svg>
