@@ -1,0 +1,11 @@
+tags:
+  - { name: Web, icon: code }
+homeTags: [Web]
+projects:
+  - name: Example project
+    description: An example project tile.
+    tags: [Web]
+    tech: [typescript, svelte]
+    year: 2026
+    highlight: true
+    link: /writing/writing-features

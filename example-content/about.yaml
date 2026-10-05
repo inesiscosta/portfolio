@@ -1,0 +1,11 @@
+born: "2000-01-01T12:00:00+00:00"
+heading: A bit about me.
+summary: This is example content. The real About text lives in a private repo.
+paragraphs:
+  - Replace example-content with your own content repo in src/content.
+stats:
+  - auto: age
+    caption: Years old
+  - auto: commits
+    caption: Commits
+images: []

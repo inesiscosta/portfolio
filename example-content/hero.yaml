@@ -1,0 +1,13 @@
+pre: Welcome to the example content.
+role: a Software Engineer.
+tech: [typescript, svelte]
+body:
+  - This is placeholder text; the real hero lives in the private content repo.
+terminal:
+  welcome: Welcome! Type `help` to see what you can do here.
+  demo: [ls]
+  about:
+    - Example Person
+  impossibleList:
+    - goal: Write the real content
+      done: false

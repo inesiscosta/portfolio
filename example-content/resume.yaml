@@ -1,0 +1,22 @@
+focuses: [Web]
+portrait:
+  src: https://example.com/portrait.webp
+  alt: Example portrait
+pdf: https://example.com/cv.pdf
+experience:
+  - organization: Example Org
+    location: Somewhere
+    roles:
+      - title: Software Engineer
+        from: "2024-01"
+        to: null
+        points:
+          - text: An example resume point.
+            focus: [Web]
+education: []
+skills:
+  - group: Programming
+    items: [TypeScript]
+skillFocus:
+  TypeScript: [Web]
+volunteering: []

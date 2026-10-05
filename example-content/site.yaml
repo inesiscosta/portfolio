@@ -1,0 +1,7 @@
+url: https://example.com
+cloudflare:
+  accountId: 00000000000000000000000000000000
+  worker: portfolio
+  bucket: portfolio-content
+  assetsUrl: https://assets.example.com
+  imageTransforms: false

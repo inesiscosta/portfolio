@@ -1,0 +1,6 @@
+events:
+  - id: born
+    date: "2000-01-01"
+    heading: Hello, world
+    description: An example timeline event.
+    icon: baby

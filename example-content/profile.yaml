@@ -1,0 +1,11 @@
+name: Example Person
+fullName: Example Person
+handle: example
+role: Software Engineer
+location: Somewhere
+timeZone: Europe/Berlin
+email: hello@example.com
+description: Example content. The real profile lives in a private repo.
+links:
+  github: https://github.com/example
+  linkedin: https://www.linkedin.com/in/example

@@ -1,0 +1,16 @@
+projects:
+  heading: Things I've built.
+  intro: A few projects.
+writing:
+  heading: Writing.
+  intro: Notes and write-ups.
+resume:
+  heading: Experience.
+  intro: Work, education and skills.
+contact:
+  heading: Get in
+  highlight: touch.
+  body: Say hello.
+  topics:
+    - { label: Projects, icon: code-xml }
+    - { label: Coffee chat, icon: coffee }
