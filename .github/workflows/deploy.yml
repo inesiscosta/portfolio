@@ -1,0 +1,73 @@
+name: Deploy
+
+# Builds the site from this repo (the engine) plus the content repo (cloned into src/content), then deploys it to
+# Cloudflare Workers. Runs on pushes to main; weekly, so the age and commit-count stats stay current; by hand; and
+# from the content repo's own workflow (workflow_call), so publishing content or a post never needs a commit here.
+#
+# Repository variable here: CONTENT_REPO (owner/name); the content repo passes site_repo and content_repo instead.
+# Secrets: CLOUDFLARE_API_TOKEN in both repos, and here CONTENT_DEPLOY_KEY (the private half of a read-only deploy
+# key on the content repo); run from the content repo, its own token reads it.
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 4 * * 1"
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      site_repo:
+        type: string
+        required: true
+      content_repo:
+        type: string
+        required: true
+    secrets:
+      CLOUDFLARE_API_TOKEN:
+        required: true
+      CONTENT_DEPLOY_KEY:
+        required: false
+
+permissions:
+  contents: read
+
+# One deploy at a time; a newer one waits rather than cancelling one that's mid-upload.
+concurrency:
+  group: deploy-site
+  cancel-in-progress: false
+
+env:
+  SITE_REPO: ${{ inputs.site_repo || github.repository }}
+  CONTENT_REPO: ${{ inputs.content_repo || vars.CONTENT_REPO }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: ${{ env.SITE_REPO }}
+          persist-credentials: false
+      - name: Check out the content repo
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: ${{ env.CONTENT_REPO }}
+          path: src/content
+          # Run from the content repo, its own token reads it; from anywhere else, the read-only deploy key does.
+          ssh-key: ${{ github.repository != env.CONTENT_REPO && secrets.CONTENT_DEPLOY_KEY || '' }}
+          persist-credentials: false
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm tsc
+      - run: pnpm exec biome ci .
+      - run: pnpm build
+        env:
+          # Fail rather than deploy example content if the content repo didn't check out.
+          REQUIRE_CONTENT: "1"
+          GITHUB_TOKEN: ${{ github.token }}
+      - run: pnpm exec wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

@@ -1,0 +1,17 @@
+# Served by Cloudflare for static assets (the adapter copies this file into the build). Every page is prerendered, so
+# these cover the whole site. Hashed files under /_app/immutable already get a long cache from the adapter.
+# No Content-Security-Policy here: what a post may load or run depends on the posts (an emulator compiling
+# code with new Function, Pyodide from a CDN), so a policy belongs with the posts and needs testing in `pnpm preview`.
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Cross-Origin-Opener-Policy: same-origin
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+
+/images/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable

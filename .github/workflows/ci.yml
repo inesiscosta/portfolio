@@ -1,0 +1,30 @@
+name: CI
+
+# Checks pull requests against the example content (the private content repo isn't available here). Pushes to main
+# are checked by deploy.yml, which runs the same steps against the real content before deploying.
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm tsc
+      - run: pnpm exec biome ci .
+      - run: pnpm build
+        env:
+          # Authenticated requests get a higher rate limit for the build-time commit count.
+          GITHUB_TOKEN: ${{ github.token }}
+      - run: pnpm exec wrangler deploy --dry-run
